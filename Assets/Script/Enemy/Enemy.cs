@@ -11,11 +11,11 @@ public class Enemy : MonoBehaviour
     {
         if (Controller.instance.transform.position.x > transform.position.x)
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
         else
         {
-            spriteRenderer.flipY = false;
+            spriteRenderer.flipX = true;
         }
         direction = (Controller.instance.transform.position - transform.position).normalized;
         rb.linearVelocity = new Vector2(direction.x * movespeed, direction.y * movespeed);
