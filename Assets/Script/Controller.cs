@@ -6,14 +6,16 @@ public class Controller : MonoBehaviour
 {
     public static Controller Instance;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator animator;
+    //[SerializeField] private Animator animator;
     [SerializeField] private float movespeed;
     public Vector3 playerMoveDirection;
     public float playerMaxHealth;
     public float playerHealth;
     public float playerMaxEXP;
     public float playerEXP;
-
+    public float VelocityX = 0;
+    public float VelocityY = 0;
+    public float friction = 0.95f;
     public int exp;
     public int currentlevel;
     public int maxlevel;
@@ -48,33 +50,42 @@ public class Controller : MonoBehaviour
     {
         float InputX = Input.GetAxisRaw("Horizontal");
         float InputY = Input.GetAxisRaw("Vertical");
-        playerMoveDirection = new Vector3(InputX, InputY).normalized;
 
-        animator.SetFloat("moveX", InputX);
-        animator.SetFloat("moveY", InputY);
+        VelocityX *= friction;
+        if (VelocityX > -0.05f && VelocityX < 0.05f)
+        {
+            VelocityX = 0;
+        }
+        if (VelocityX > -1f && VelocityX < 1f)
+            VelocityX += InputX * 0.06f;
+
+        VelocityY *= friction;
+        if (VelocityY > -0.05f && VelocityY < 0.05f)
+        {
+            VelocityY = 0;
+        }
+
+        if (VelocityY > -1f && VelocityY < 1f)
+            VelocityY += InputY * 0.06f;
+
+
+        playerMoveDirection = new Vector3(VelocityX, VelocityY).normalized;
+
+        //animator.SetFloat("moveX", VelocityX);
+        //animator.SetFloat("moveY", VelocityY);
 
         if (playerMoveDirection == Vector3.zero)
         {
-            animator.SetBool("moving", false);
+            //animator.SetBool("moving", false);
         }
         else
         {
-            animator.SetBool("moving", true);
-        }
-        if (slowDurationTimer > 0)
-        {
-            slowDurationTimer -= Time.deltaTime;
-
-            if (slowDurationTimer <= 0)
-            {
-                movespeed = originalMoveSpeed;
-                Debug.Log("Slow Debuff Ended. Speed Restored.");
-            }
+            //animator.SetBool("moving", true);
         }
     }
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(playerMoveDirection.x * movespeed, playerMoveDirection.y * movespeed);
+        rb.linearVelocity = new Vector2(VelocityX * movespeed, VelocityY * movespeed);
     }
     public void ApplySlow(float duration)
     {

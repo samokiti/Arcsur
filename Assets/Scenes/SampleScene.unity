@@ -270,7 +270,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 619394802}
-  - {fileID: 519420032}
   - {fileID: 1186290867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -902,12 +901,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.002360129, w: -0.99999726}
-  m_LocalPosition: {x: -8.04, y: 2.87, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0004722907, y: 0.09999885, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 136408121}
+  m_Father: {fileID: 1231434583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &524392784
 GameObject:
@@ -1538,8 +1537,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 248950615
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2146509085206075669, guid: 0074c7e6d64613a449ecebb4fba5a947, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1563,7 +1562,8 @@ Transform:
   m_LocalPosition: {x: -0.03, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
   m_Father: {fileID: 1279397577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.27}
 --- !u!114 &1231434584
@@ -1586,11 +1586,14 @@ MonoBehaviour:
   playerHealth: 0
   playerMaxEXP: 0
   playerEXP: 0
+  VelocityX: 0
+  VelocityY: 0
+  friction: 0.95
   exp: 0
   currentlevel: 0
   maxlevel: 30
   playerlevel: 0a000000140000001e000000280000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  slowPercentage: 0.5
+  slowPercentage: 0
 --- !u!50 &1231434585
 Rigidbody2D:
   serializedVersion: 5
@@ -2000,7 +2003,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.038928807, y: 0.71227264, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1279397577}
@@ -2051,7 +2054,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1.1538461, y: 0.038461566, z: 0}
   m_MaxChunkCount: 16

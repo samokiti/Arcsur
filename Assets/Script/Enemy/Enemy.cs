@@ -10,12 +10,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float health;
     [SerializeField] private int exptogive;
     [SerializeField] private float pushtime;
-
+    public GameObject ExpOrb;
+    public GameObject Hearth;
     private float pushcounter;
-    [Header("Debuff Settings")]
-    [SerializeField] private float slowDuration = 2f;
+    //[Header("Debuff Settings")]
+    //[SerializeField] private float slowDuration = 2f;
 
-    [SerializeField] private GameObject destroyEffect;
+    //[SerializeField] private GameObject destroyEffect;
     void FixedUpdate()
     {
         if (Controller.Instance.transform.position.x > transform.position.x)
@@ -35,21 +36,29 @@ public class Enemy : MonoBehaviour
         {
             Controller.Instance.TakeDamage(1);
             Debug.Log("Enemy hit Player!");
-            Controller.Instance.ApplySlow(slowDuration);
+            //Controller.Instance.ApplySlow(slowDuration);
             Debug.Log("ApplySlow on Player.");
             Destroy(gameObject);
-            Instantiate(destroyEffect, transform.position, transform.rotation);
+            //Instantiate(destroyEffect, transform.position, transform.rotation);
+        }
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
+        {
+            Debug.Log("PlayerProjectile hit Enemy!");
+            TakeDamage(1);
         }
     }
     public void TakeDamage(float damage)
     {
         health -= damage;
         pushcounter = pushtime;
-        if (health < 0)
+        if (health <= 0)
         {
+          
+            Instantiate(ExpOrb, transform.position, transform.rotation);
+            Instantiate(Hearth, transform.position, transform.rotation);
             Destroy(gameObject);
-            Instantiate(destroyEffect, transform.position, transform.rotation);
-            Controller.Instance.getexp(exptogive);
         }
     }
+
+
 }
