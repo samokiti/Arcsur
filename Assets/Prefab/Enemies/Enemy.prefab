@@ -108,6 +108,11 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2946488721622917013}
   rb: {fileID: 5447625958855790563}
   movespeed: 2
+  damage: 0
+  health: 0
+  exptogive: 5
+  pushtime: 0
+  slowDuration: 2
   destroyEffect: {fileID: 0}
 --- !u!50 &5447625958855790563
 Rigidbody2D:
