@@ -5,6 +5,11 @@ public class Controller : MonoBehaviour
 {
     public static Controller Instance;
     [SerializeField] private Rigidbody2D rb;
+
+    // 1. เพิ่มตัวแปร Animator และ SpriteRenderer
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer; // <<< ต้องลาก SpriteRenderer มาใส่ช่องนี้
+
     [SerializeField] private float movespeed;
     public Vector3 playerMoveDirection;
     public float playerMaxHealth;
@@ -52,19 +57,50 @@ public class Controller : MonoBehaviour
         playerEXP = exp;
         playerMaxEXP = playerlevel[currentlevel];
 
-        // เช็ค null ก่อนเรียกใช้เพื่อความปลอดภัย
         if (UIController.Instance != null)
         {
             UIController.Instance.UpdateHealthSlider();
             UIController.Instance.UpdateEXPSlider();
         }
+
+        // กันลืม: ถ้าไม่ได้ลากมา ให้โค้ดลองหาเอง
+        if (animator == null) animator = GetComponent<Animator>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        // ... (Code การเดินเดิมของคุณ คงไว้เหมือนเดิม) ...
         float InputX = Input.GetAxisRaw("Horizontal");
         float InputY = Input.GetAxisRaw("Vertical");
+
+        // ---------------------------------------------------------
+        // แก้ไข 1: จัดการ Animation (วิ่ง/ยืน)
+        // ---------------------------------------------------------
+        if (InputX != 0 || InputY != 0)
+        {
+            // ถ้ามีการกดปุ่มเดิน ให้เล่นท่าวิ่ง
+            if (animator != null) animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            // ถ้าไม่กด ให้หยุด
+            if (animator != null) animator.SetBool("isRunning", false);
+        }
+
+        // ---------------------------------------------------------
+        // แก้ไข 2: จัดการหันหน้า (Flip) โดยไม่ให้กระทบการยิง
+        // ---------------------------------------------------------
+        if (InputX > 0)
+        {
+            // หันขวา (ปกติ)
+            if (spriteRenderer != null) spriteRenderer.flipX = false;
+        }
+        else if (InputX < 0)
+        {
+            // หันซ้าย (Flip รูปอย่างเดียว ไม่กระทบ Transform)
+            if (spriteRenderer != null) spriteRenderer.flipX = true;
+        }
+        // ---------------------------------------------------------
 
         VelocityX *= friction;
         if (VelocityX > -0.05f && VelocityX < 0.05f) VelocityX = 0;
@@ -82,7 +118,6 @@ public class Controller : MonoBehaviour
         rb.linearVelocity = new Vector2(VelocityX * movespeed, VelocityY * movespeed);
     }
 
-    // ... (Functions TakeDamage, ApplySlow คงไว้เหมือนเดิม) ...
     public void ApplySlow(float duration)
     {
         movespeed = originalMoveSpeed * slowPercentage;
@@ -120,15 +155,9 @@ public class Controller : MonoBehaviour
         {
             playerMaxEXP = playerlevel[currentlevel];
         }
-
-        // เปิดหน้าต่าง UI Level Up
         UIController.Instance.Leveluppanelopen();
-
-        // หมายเหตุ: ผมลบโค้ดส่วน activeweapon เดิมออกชั่วคราว 
-        // เพราะเราจะใช้ปุ่มแบบ Fixed Card ตามรูปภาพของคุณแทน
     }
 
-    // *** ฟังก์ชันใหม่สำหรับรับค่าจากปุ่ม Level Up ***
     public void ApplyUpgrade(UpgradeType type)
     {
         switch (type)
@@ -141,7 +170,8 @@ public class Controller : MonoBehaviour
 
             case UpgradeType.Speed:
                 movespeed += 1f;
-                // update originalMoveSpeed ด้วยถ้ามีตัวแปรนี้
+                // อัปเดต originalMoveSpeed ด้วย เพื่อให้เวลาหาย Slow กลับมาเร็วเท่าเดิม
+                originalMoveSpeed += 1f;
                 Debug.Log("Speed up!");
                 break;
 

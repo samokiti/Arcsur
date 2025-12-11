@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4384643943191167957}
   - component: {fileID: 8812858456541993539}
   - component: {fileID: 3977400322543634642}
+  - component: {fileID: 6615890080791348322}
   m_Layer: 0
   m_Name: EnMelee
   m_TagString: Enemy
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -941640429
-  m_SortingLayer: 0
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 1208040086343421634, guid: 238df969ddf000d478a071627f8145e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,9 +112,9 @@ MonoBehaviour:
   damage: 0
   health: 80
   exptogive: 5
-  pushtime: 0
   ExpOrb: {fileID: 1651526889592778424, guid: f4e1808b57cffc0409e754b67bd15050, type: 3}
   Hearth: {fileID: 4844187383581199150, guid: c2a979e3792c4bc47bbcdb0188481977, type: 3}
+  weaponstats: {fileID: 0}
 --- !u!50 &8812858456541993539
 Rigidbody2D:
   serializedVersion: 5
@@ -178,3 +179,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 0.8}
   m_Direction: 1
+--- !u!95 &6615890080791348322
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366946398048303309}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7e7e33e76483c1946ab7a634c5f8a430, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
