@@ -165,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4480557999713703212}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.002360129, w: -0.99999726}
+  m_LocalRotation: {x: 0, y: 0, z: 0.0023562086, w: 0.99999726}
   m_LocalPosition: {x: -0.02, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -247,7 +247,7 @@ MonoBehaviour:
   rb: {fileID: 4814370980188972062}
   movespeed: 20
   playerMoveDirection: {x: 0, y: 0, z: 0}
-  playerMaxHealth: 30
+  playerMaxHealth: 5
   playerHealth: 0
   playerMaxEXP: 0
   playerEXP: 0
