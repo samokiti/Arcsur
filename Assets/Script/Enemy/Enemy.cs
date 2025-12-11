@@ -6,10 +6,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Vector3 direction;
     [SerializeField] private float movespeed;
-
     [SerializeField] private float damage;
     [SerializeField] private float health;
     [SerializeField] private int exptogive;
+    private int chill = 0;
     public GameObject ExpOrb;
     public GameObject Hearth;
     public Transform weaponstats;
@@ -19,6 +19,17 @@ public class Enemy : MonoBehaviour
     //[SerializeField] private GameObject destroyEffect;
     void FixedUpdate()
     {
+        float slow;
+        if (chill > 0)
+        {
+            chill--;
+            slow = 0.2f;
+        }
+        else
+        {
+            slow = 1f;
+
+        }
         if (Controller.Instance.transform.position.x > transform.position.x)
         {
             spriteRenderer.flipX = false;
@@ -28,7 +39,7 @@ public class Enemy : MonoBehaviour
             spriteRenderer.flipX = true;
         }
         direction = (Controller.Instance.transform.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * movespeed, direction.y * movespeed);
+        rb.linearVelocity = new Vector2(direction.x * slow * movespeed, direction.y * slow * movespeed);
     }
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -49,6 +60,7 @@ public class Enemy : MonoBehaviour
         else if (collision.gameObject.CompareTag("icebullet"))
         {
             //Debug.Log("PlayerProjectile hit Enemy!");
+            chill += 15;
             TakeDamage(Controller.Instance.skill1dmg);
         }
     }
@@ -57,7 +69,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-          
+
             Instantiate(ExpOrb, transform.position, transform.rotation);
             int rdh = Random.Range(1, 8);
             if (rdh == 7)
