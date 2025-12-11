@@ -8,7 +8,7 @@ public class BulletScript : MonoBehaviour
     public float force;
     private float timer;
     public float Bulletlifespan = 2;
-
+    public int rotate;
     public float Damage = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +20,7 @@ public class BulletScript : MonoBehaviour
         Vector3 rotation = transform.position - mousePos;
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
         float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rot -180);
+        transform.rotation = Quaternion.Euler(0, 0, rot - rotate);
 
     }
 
