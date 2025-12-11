@@ -27,7 +27,7 @@ public class firespell : MonoBehaviour
         if (!canFire)
         {
             timer += Controller.Instance.skill2cd;
-            if (timer > 60)
+            if (timer > 200)
             {
                 canFire = true;
                 timer = 0;

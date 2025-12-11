@@ -27,7 +27,7 @@ public class Icespell : MonoBehaviour
         if (!canFire)
         {
             timer += Controller.Instance.skill1cd ;
-            if (timer > 60)
+            if (timer > 200)
             {
                 canFire = true;
                 timer = 0;
