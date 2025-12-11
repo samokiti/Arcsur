@@ -23,6 +23,11 @@ public class Controller : MonoBehaviour
 
     public Weapon activeweapon;
 
+    public float skill1dmg = 2f;
+    public float skill2dmg = 5f;
+    public float skill1cd = 10f;
+    public float skill2cd = 1f;
+
     [Header("Slow Debuff")]
     private float originalMoveSpeed;
     private float slowDurationTimer;

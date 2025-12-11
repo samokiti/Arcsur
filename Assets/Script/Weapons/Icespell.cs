@@ -8,7 +8,6 @@ public class Icespell : MonoBehaviour
     public Transform bulletTransform;
     public bool canFire;
     private float timer;
-    public float TimeBetweenFiring;
     private int swapside = 1;
     private int randomshoot = 90;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,8 +26,8 @@ public class Icespell : MonoBehaviour
         
         if (!canFire)
         {
-            timer += Time.deltaTime;
-            if (timer > TimeBetweenFiring)
+            timer += Controller.Instance.skill1cd ;
+            if (timer > 60)
             {
                 canFire = true;
                 timer = 0;

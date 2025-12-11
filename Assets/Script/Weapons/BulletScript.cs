@@ -39,16 +39,16 @@ public class BulletScript : MonoBehaviour
 
 
     }
-    void OnCollisionStay2D(Collision2D collision)
-    {
+    //void OnCollisionStay2D(Collision2D collision)
+    //{
         
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Enemy enemy = GetComponent<Collider>().GetComponent<Enemy>();
-            enemy.TakeDamage(Damage);
-            Destroy(gameObject);
-        }
-    }
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Enemy enemy = GetComponent<Collider>().GetComponent<Enemy>();
+    //        enemy.TakeDamage(Damage);
+    //        Destroy(gameObject);
+    //    }
+    //}
 
 
 }

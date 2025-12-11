@@ -8,7 +8,7 @@ public class firespell : MonoBehaviour
     public Transform bulletTransform;
     public bool canFire;
     private float timer;
-    public float TimeBetweenFiring;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,8 +26,8 @@ public class firespell : MonoBehaviour
 
         if (!canFire)
         {
-            timer += Time.deltaTime;
-            if (timer > TimeBetweenFiring)
+            timer += Controller.Instance.skill2cd;
+            if (timer > 60)
             {
                 canFire = true;
                 timer = 0;

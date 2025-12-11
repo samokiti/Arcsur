@@ -6,13 +6,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Vector3 direction;
     [SerializeField] private float movespeed;
+
     [SerializeField] private float damage;
     [SerializeField] private float health;
     [SerializeField] private int exptogive;
-    [SerializeField] private float pushtime;
     public GameObject ExpOrb;
     public GameObject Hearth;
-    private float pushcounter;
+    public Transform weaponstats;
     //[Header("Debuff Settings")]
     //[SerializeField] private float slowDuration = 2f;
 
@@ -44,18 +44,17 @@ public class Enemy : MonoBehaviour
         else if (collision.gameObject.CompareTag("PlayerProjectile"))
         {
             //Debug.Log("PlayerProjectile hit Enemy!");
-            TakeDamage(2);
+            TakeDamage(Controller.Instance.skill2dmg);
         }
         else if (collision.gameObject.CompareTag("icebullet"))
         {
             //Debug.Log("PlayerProjectile hit Enemy!");
-            TakeDamage(1);
+            TakeDamage(Controller.Instance.skill1dmg);
         }
     }
     public void TakeDamage(float damage)
     {
         health -= damage;
-        pushcounter = pushtime;
         if (health <= 0)
         {
           
