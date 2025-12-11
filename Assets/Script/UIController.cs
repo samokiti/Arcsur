@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider playerEXPSlider;
     public GameObject gameover;
     public GameObject pausepanel;
+    public GameObject levelUpPanel;
+
+    public List<lvupbutton> levelupbuttons;
     //[SerializeField] private TMP_Text timerText;
     void Awake()
     {
@@ -31,8 +36,21 @@ public class UIController : MonoBehaviour
         playerEXPSlider.maxValue = Controller.Instance.playerMaxEXP;
         playerEXPSlider.value = Controller.Instance.playerEXP;
     }
-    void Update()
+    public void Leveluppanelopen()
     {
-        
+        if (levelUpPanel != null)
+        {
+            levelUpPanel.SetActive(true);
+            Time.timeScale = 0f; 
+        }
+    }
+
+    internal void Leveluppannelclose()
+    {
+        if (levelUpPanel != null)
+        {
+            levelUpPanel.SetActive(false);
+            Time.timeScale = 1f; 
+        }
     }
 }

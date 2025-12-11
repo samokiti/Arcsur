@@ -21,6 +21,8 @@ public class Controller : MonoBehaviour
     public int maxlevel;
     public List<int> playerlevel;
 
+    public Weapon activeweapon;
+
     [Header("Slow Debuff")]
     private float originalMoveSpeed;
     private float slowDurationTimer;
@@ -37,11 +39,14 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        if (playerlevel.Count == 0) playerlevel.Add(10);
         for (int i = playerlevel.Count; i < maxlevel; i++)
         {
             playerlevel.Add(Mathf.CeilToInt(playerlevel[playerlevel.Count - 1] * 1.1f + 10));
         }
         playerHealth = playerMaxHealth;
+        playerEXP = exp;
+        playerMaxEXP = playerlevel[currentlevel];
         UIController.Instance.UpdateHealthSlider();
         UIController.Instance.UpdateEXPSlider();
 
@@ -100,13 +105,37 @@ public class Controller : MonoBehaviour
         UIController.Instance.UpdateHealthSlider();
         if (playerHealth <= 0)
         {
-            gameObject.SetActive(false);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.TriggerGameOver();
+            }
         }
     }
 
     public void getexp(int exptoget)
     {
         exp += exptoget;
+        playerEXP = exp;
+        playerMaxEXP = playerlevel[currentlevel];
+        while (currentlevel < playerlevel.Count && exp >= playerlevel[currentlevel])
+        {
+            levelup();
+        }
         UIController.Instance.UpdateEXPSlider();
+    }
+    public void levelup()
+    {
+        exp -= playerlevel[currentlevel];
+        currentlevel++;
+        playerEXP = exp;
+        if (currentlevel < playerlevel.Count)
+        {
+            playerMaxEXP = playerlevel[currentlevel];
+        }
+        if (activeweapon != null && UIController.Instance.levelupbuttons.Count > 0)
+        {
+            UIController.Instance.levelupbuttons[0].Activatbutton(activeweapon);
+        }
+        UIController.Instance.Leveluppanelopen();
     }
 }

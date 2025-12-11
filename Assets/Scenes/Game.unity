@@ -155,7 +155,7 @@ MonoBehaviour:
   playerEXPSlider: {fileID: 2088518304}
   gameover: {fileID: 731330667}
   pausepanel: {fileID: 291236453}
-  leveluppanel: {fileID: 106542656}
+  levelUpPanel: {fileID: 106542656}
   levelupbuttons: []
 --- !u!114 &29495028
 MonoBehaviour:
@@ -2350,7 +2350,7 @@ MonoBehaviour:
   rb: {fileID: 1231434585}
   movespeed: 20
   playerMoveDirection: {x: 0, y: 0, z: 0}
-  playerMaxHealth: 5
+  playerMaxHealth: 30
   playerHealth: 0
   playerMaxEXP: 0
   playerEXP: 0
@@ -2360,10 +2360,8 @@ MonoBehaviour:
   exp: 0
   currentlevel: 0
   maxlevel: 30
-  playerlevel: 
+  playerlevel: 0a000000
   activeweapon: {fileID: 0}
-  immunityDuration: 0
-  immunityTimer: 0
   slowPercentage: 0.5
 --- !u!50 &1231434585
 Rigidbody2D:
