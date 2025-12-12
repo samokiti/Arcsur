@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1190708390829542657}
   - component: {fileID: 325817969180854530}
   - component: {fileID: 8798118478163186160}
-  m_Layer: 1
+  m_Layer: 6
   m_Name: EnemyBullet
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 18
+    m_Bits: 82
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

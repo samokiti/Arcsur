@@ -169,8 +169,8 @@ public class Controller : MonoBehaviour
         switch (type)
         {
             case UpgradeType.Attack:
-                skill1dmg += 1f;
-                skill2dmg += 2f;
+                skill1dmg += 0.5f;
+                skill2dmg += 1f;
                 skill1cd += 0.7f;
                 skill2cd += 0.2f;
                 Debug.Log("Attack boost!");
