@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
         if (UIController.Instance.gameover.activeSelf) return;
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
@@ -53,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (UIController.Instance.pausepanel.activeSelf == false)
         {
             UIController.Instance.pausepanel.SetActive(true);
-            Time.timeScale = 0f; 
+            Time.timeScale = 0f;
         }
         else
         {

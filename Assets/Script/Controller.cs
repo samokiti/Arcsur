@@ -6,11 +6,12 @@ public class Controller : MonoBehaviour
     public static Controller Instance;
     [SerializeField] private Rigidbody2D rb;
 
-    // 1. เพิ่มตัวแปร Animator และ SpriteRenderer
     [SerializeField] private Animator animator;
-    [SerializeField] private SpriteRenderer spriteRenderer; // <<< ต้องลาก SpriteRenderer มาใส่ช่องนี้
+
+    [SerializeField] private SpriteRenderer spriteRenderer; 
 
     [SerializeField] private float movespeed;
+    public float extraspeed = 1f;
     public Vector3 playerMoveDirection;
     public float playerMaxHealth;
     public float playerHealth;
@@ -23,14 +24,14 @@ public class Controller : MonoBehaviour
     public int currentlevel;
     public int maxlevel;
     public List<int> playerlevel;
-
+    private float exspeed;
     public Weapon activeweapon;
 
     [Header("Skills Stats")]
     public float skill1dmg = 2f;
     public float skill2dmg = 5f;
-    public float skill1cd = 10f;
-    public float skill2cd = 0f;
+    public float skill1cd = 2f;
+    public float skill2cd = 0.3f;
 
     [Header("Slow Debuff")]
     private float originalMoveSpeed;
@@ -62,8 +63,6 @@ public class Controller : MonoBehaviour
             UIController.Instance.UpdateHealthSlider();
             UIController.Instance.UpdateEXPSlider();
         }
-
-        // กันลืม: ถ้าไม่ได้ลากมา ให้โค้ดลองหาเอง
         if (animator == null) animator = GetComponent<Animator>();
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -72,36 +71,22 @@ public class Controller : MonoBehaviour
     {
         float InputX = Input.GetAxisRaw("Horizontal");
         float InputY = Input.GetAxisRaw("Vertical");
-
-        // ---------------------------------------------------------
-        // แก้ไข 1: จัดการ Animation (วิ่ง/ยืน)
-        // ---------------------------------------------------------
         if (InputX != 0 || InputY != 0)
         {
-            // ถ้ามีการกดปุ่มเดิน ให้เล่นท่าวิ่ง
             if (animator != null) animator.SetBool("isRunning", true);
         }
         else
         {
-            // ถ้าไม่กด ให้หยุด
             if (animator != null) animator.SetBool("isRunning", false);
         }
-
-        // ---------------------------------------------------------
-        // แก้ไข 2: จัดการหันหน้า (Flip) โดยไม่ให้กระทบการยิง
-        // ---------------------------------------------------------
         if (InputX > 0)
         {
-            // หันขวา (ปกติ)
             if (spriteRenderer != null) spriteRenderer.flipX = false;
         }
         else if (InputX < 0)
         {
-            // หันซ้าย (Flip รูปอย่างเดียว ไม่กระทบ Transform)
             if (spriteRenderer != null) spriteRenderer.flipX = true;
         }
-        // ---------------------------------------------------------
-
         VelocityX *= friction;
         if (VelocityX > -0.05f && VelocityX < 0.05f) VelocityX = 0;
         if (VelocityX > -1f && VelocityX < 1f) VelocityX += InputX * 0.06f;
@@ -111,11 +96,21 @@ public class Controller : MonoBehaviour
         if (VelocityY > -1f && VelocityY < 1f) VelocityY += InputY * 0.06f;
 
         playerMoveDirection = new Vector3(VelocityX, VelocityY).normalized;
+        if (extraspeed > 0f)
+        {
+            extraspeed -= 1f;
+            exspeed = movespeed * 0.5f;
+        }
+        else
+        {
+            extraspeed = 0f;
+            exspeed = 0;
+        }
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(VelocityX * movespeed, VelocityY * movespeed);
+        rb.linearVelocity = new Vector2(VelocityX * (movespeed + exspeed), VelocityY * (movespeed + exspeed));
     }
 
     public void ApplySlow(float duration)
@@ -126,8 +121,17 @@ public class Controller : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if(playerHealth - damage > playerMaxHealth)
+        {
+            damage = 0;
+        }
+        if (damage < 0)
+        {
+            extraspeed =  50f;
+        }
         playerHealth -= damage;
         UIController.Instance.UpdateHealthSlider();
+
         if (playerHealth <= 0)
         {
             if (GameManager.Instance != null) GameManager.Instance.TriggerGameOver();
@@ -156,6 +160,8 @@ public class Controller : MonoBehaviour
             playerMaxEXP = playerlevel[currentlevel];
         }
         UIController.Instance.Leveluppanelopen();
+
+
     }
 
     public void ApplyUpgrade(UpgradeType type)
@@ -163,20 +169,21 @@ public class Controller : MonoBehaviour
         switch (type)
         {
             case UpgradeType.Attack:
-                skill1dmg += 2f;
-                skill2dmg += 5f;
+                skill1dmg += 1f;
+                skill2dmg += 2f;
+                skill1cd += 0.7f;
+                skill2cd += 0.2f;
                 Debug.Log("Attack boost!");
                 break;
 
             case UpgradeType.Speed:
-                movespeed += 1f;
-                // อัปเดต originalMoveSpeed ด้วย เพื่อให้เวลาหาย Slow กลับมาเร็วเท่าเดิม
-                originalMoveSpeed += 1f;
+                movespeed += 0.5f;
+                playerMaxHealth += 1f;
                 Debug.Log("Speed up!");
                 break;
 
             case UpgradeType.Heal:
-                playerHealth += 20;
+                playerHealth = playerMaxHealth;
                 if (playerHealth > playerMaxHealth) playerHealth = playerMaxHealth;
                 UIController.Instance.UpdateHealthSlider();
                 Debug.Log("Heal!");

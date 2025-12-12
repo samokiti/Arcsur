@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -9095002088529191185}
   - component: {fileID: 8389705484547803815}
   - component: {fileID: 4241799801263683444}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: heart pixel art 254x254_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_Radius: 1.27
 --- !u!114 &4241799801263683444
 MonoBehaviour:
@@ -168,4 +168,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e118191ccf5304585e6c0f4604e108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  HealAmount: 5
+  HealAmount: 3

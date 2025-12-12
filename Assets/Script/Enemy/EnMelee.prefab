@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4384643943191167957}
   - component: {fileID: 8812858456541993539}
   - component: {fileID: 3977400322543634642}
-  - component: {fileID: 6615890080791348322}
-  m_Layer: 0
+  - component: {fileID: -1879486136913652743}
+  m_Layer: 6
   m_Name: EnMelee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -941640429
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 1208040086343421634, guid: 238df969ddf000d478a071627f8145e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -158,7 +158,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 18
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -179,7 +179,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 0.8}
   m_Direction: 1
---- !u!95 &6615890080791348322
+--- !u!95 &-1879486136913652743
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ public class EnemyProjectile : MonoBehaviour
 {
 
     public GameObject Projectile;
-    private int summontime = 150;
+    public int summontime = 200;
 
     void FixedUpdate()
     {
@@ -12,7 +12,7 @@ public class EnemyProjectile : MonoBehaviour
         summontime --;
         if (summontime <0)
         {
-            summontime = 150;
+            summontime = 180;
             
             Instantiate(Projectile, transform.position, transform.rotation);
         }

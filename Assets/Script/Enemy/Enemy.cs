@@ -13,12 +13,17 @@ public class Enemy : MonoBehaviour
     public GameObject ExpOrb;
     public GameObject Hearth;
     public Transform weaponstats;
+
     //[Header("Debuff Settings")]
     //[SerializeField] private float slowDuration = 2f;
 
     //[SerializeField] private GameObject destroyEffect;
+
+
+
     void FixedUpdate()
     {
+
         float slow;
         if (chill > 0)
         {
@@ -47,10 +52,7 @@ public class Enemy : MonoBehaviour
         {
             Controller.Instance.TakeDamage(1);
             Debug.Log("Enemy hit Player!");
-            //Controller.Instance.ApplySlow(slowDuration);
-            //Debug.Log("ApplySlow on Player.");
             Destroy(gameObject);
-            //Instantiate(destroyEffect, transform.position, transform.rotation);
         }
         else if (collision.gameObject.CompareTag("PlayerProjectile"))
         {

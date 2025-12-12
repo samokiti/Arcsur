@@ -10,7 +10,6 @@ public class BulletScript : MonoBehaviour
     public float Bulletlifespan = 2;
     public int rotate;
     public float Damage = 5f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -24,7 +23,6 @@ public class BulletScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
@@ -33,22 +31,6 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //Destroy(gameObject);
-
-
-
-
     }
-    //void OnCollisionStay2D(Collision2D collision)
-    //{
-        
-    //    if (collision.gameObject.CompareTag("Enemy"))
-    //    {
-    //        Enemy enemy = GetComponent<Collider>().GetComponent<Enemy>();
-    //        enemy.TakeDamage(Damage);
-    //        Destroy(gameObject);
-    //    }
-    //}
-
 
 }

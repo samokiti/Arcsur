@@ -18,9 +18,9 @@ public class UIController : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this); 
+            Destroy(this);
         }
-        else 
+        else
         {
             Instance = this;
         }
@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
         if (levelUpPanel != null)
         {
             levelUpPanel.SetActive(true);
-            Time.timeScale = 0f; 
+            Time.timeScale = 0f;
         }
     }
 
@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
         if (levelUpPanel != null)
         {
             levelUpPanel.SetActive(false);
-            Time.timeScale = 1f; 
+            Time.timeScale = 1f;
         }
     }
 }
